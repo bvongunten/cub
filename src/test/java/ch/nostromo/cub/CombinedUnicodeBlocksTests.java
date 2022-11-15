@@ -7,29 +7,32 @@ import static org.junit.Assert.assertTrue;
 
 public class CombinedUnicodeBlocksTests {
 
+    CombinedUnicodeBlocks testee = new CombinedUnicodeBlocks(
+            Character.UnicodeBlock.BASIC_LATIN,
+            Character.UnicodeBlock.LATIN_1_SUPPLEMENT,
+            Character.UnicodeBlock.LATIN_EXTENDED_A);
+
 
     @Test
     public void swissRegistersTests() {
-        CombinedUnicodeBlocks testee = new CombinedUnicodeBlocks(
-                Character.UnicodeBlock.BASIC_LATIN,
-                Character.UnicodeBlock.LATIN_1_SUPPLEMENT,
-                Character.UnicodeBlock.LATIN_EXTENDED_A);
+        String basicLatin = "BBB";
+        String latin1Supplement = "ÀÁÂ";
+        String latinExtendedA = "ĆĈĊČ";
 
-        String basicLatin = "B";
-        String latinSupplement = "ÀÁÂ";
-        String extendedA = "ĆĈĊČ";
-
-        String combined = basicLatin + latinSupplement + extendedA;
-
-        String euro = "€";
+        String combined = basicLatin + latin1Supplement + latinExtendedA;
 
         assertTrue(testee.isLegal(basicLatin));
-        assertTrue(testee.isLegal(latinSupplement));
-        assertTrue(testee.isLegal(extendedA));
+        assertTrue(testee.isLegal(latin1Supplement));
+        assertTrue(testee.isLegal(latinExtendedA));
+
         assertTrue(testee.isLegal(combined));
+    }
 
-        assertFalse(testee.isLegal(euro));
+    @Test
+    public void illegalCharacterTest() {
+        String illegalCharacter = "Do not use €";
 
+        assertFalse(testee.isLegal(illegalCharacter));
     }
 
 
