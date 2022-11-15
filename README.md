@@ -1,2 +1,3 @@
-# cub
-Combined Unicode Blocks
+# Combined Unicode Blocks
+
+Playground for combined unicode blocks
